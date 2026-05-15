@@ -44,7 +44,7 @@ python -m pip install -r requirements.txt
 在项目目录执行：
 
 ```powershell
-$env:PORT="5078"
+$env:PORT="5079"
 $env:TARGET_BASE_URL="http://129.226.153.254:5078"
 python app.py
 ```
@@ -52,15 +52,15 @@ python app.py
 启动成功后会看到类似输出：
 
 ```text
-* Running on http://127.0.0.1:5078
-* Running on http://192.168.x.x:5078
+* Running on http://127.0.0.1:5079
+* Running on http://192.168.x.x:5079
 ```
 
 ## 访问地址
 
-- 本地可视化看板：`http://127.0.0.1:5078/`
-- 局域网可视化看板：`http://192.168.124.8:5078/`
-- 目标快照接口：`http://127.0.0.1:5078/api/target/snapshot`
+- 本地可视化看板：`http://127.0.0.1:5079/`
+- 局域网可视化看板：`http://192.168.124.8:5079/`
+- 目标快照接口：`http://127.0.0.1:5079/api/target/snapshot`
 - 被监听目标服务：`http://129.226.153.254:5078`
 
 ## 被监听接口
@@ -162,25 +162,25 @@ TARGET_BASE_URL = os.getenv("TARGET_BASE_URL", "http://129.226.153.254:5078").rs
 检查看板是否正常：
 
 ```powershell
-Invoke-WebRequest http://127.0.0.1:5078/ -UseBasicParsing
+Invoke-WebRequest http://127.0.0.1:5079/ -UseBasicParsing
 ```
 
 查看目标快照：
 
 ```powershell
-Invoke-RestMethod http://127.0.0.1:5078/api/target/snapshot | ConvertTo-Json -Depth 8
+Invoke-RestMethod http://127.0.0.1:5079/api/target/snapshot | ConvertTo-Json -Depth 8
 ```
 
 只查看中文指标说明：
 
 ```powershell
-$snapshot = Invoke-RestMethod http://127.0.0.1:5078/api/target/snapshot
+$snapshot = Invoke-RestMethod http://127.0.0.1:5079/api/target/snapshot
 $snapshot.metric_descriptions | Select-Object name,path,value,unit,description
 ```
 
 ## 注意事项
 
 - 当前 Flask 启动方式适合本地测试和内网使用；生产部署建议使用 Waitress、Gunicorn 或其他 WSGI 服务。
-- 如果公网无法访问看板，需要确认防火墙、安全组和端口映射是否放行 `5078`。
+- 如果公网无法访问看板，需要确认防火墙、安全组和端口映射是否放行 `5079`。
 - 如果目标服务接口结构变化，需要同步更新 [app.py](file:///e:/360MoveData/Users/Administrator/Desktop/%E6%96%B0%E9%A1%B9%E7%9B%AE/app.py) 中的 `build_metric_descriptions` 指标映射。
 - 页面中的原始 JSON 区域用于排查接口返回内容，中文指标卡片来自 `metric_descriptions` 字段。

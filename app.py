@@ -192,7 +192,7 @@ def after_request(response):
 
 @app.route("/")
 def dashboard():
-    return render_template_string(DASHBOARD_HTML, port=os.getenv("PORT", "5078"), target=TARGET_BASE_URL)
+    return render_template_string(DASHBOARD_HTML, port=os.getenv("PORT", "5079"), target=TARGET_BASE_URL)
 
 
 def fetch_json(path, timeout=8):
@@ -400,5 +400,5 @@ def metrics_api():
 
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", "5078"))
+    port = int(os.getenv("PORT", "5079"))
     app.run(host="0.0.0.0", port=port)
